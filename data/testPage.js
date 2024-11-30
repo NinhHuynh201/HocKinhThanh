@@ -1,5 +1,6 @@
-const tests = {
-  test1: { // I Phi-líp đoạn 2 câu 1 đến câu 18.
+
+export const tests = {
+  phiLipVerses: { // I Phi-líp đoạn 2 câu 1 đến câu 18.
       questions: [
         "Câu 1 bài I Phi-líp đoạn 2",
         "Câu 2 bài I Phi-líp đoạn 2", 
@@ -59,7 +60,7 @@ const tests = {
         "Anh em cũng vậy, hãy vui lòng về điều đó, và hãy cùng vui với tôi."
       ]
   },
-  test2: { // Demo
+  demoVerses: { // Demo
       questions: [
         "Câu 1 bài I Phi-líp đoạn 2",
         "Câu 2 bài I Phi-líp đoạn 2", 
@@ -107,83 +108,43 @@ let currentTest;
 let nameModel; // Địa chỉ Kinh Thánh
 let currentQuestion = 0;
 
-document.addEventListener("DOMContentLoaded", () => {
-  const selectContainer = document.getElementById("select-container");
-  const questionContainer = document.getElementById("question-container");
-  const answerInput = document.getElementById("answer-input");
-  const submitAnswerButton = document.getElementById("submit-answer");
-  const feedback = document.getElementById("feedback");
-  const homeButton = document.getElementById("home-button");
+// Reduce the blank '' in the end of the verse
+export function normalizeAnswer(answer) {
+  return answer.trim().replace(/\.+$/, '');
+}
 
-  function normalizeAnswer(answer) {
-      return answer.trim().replace(/\.+$/, '');
-  }
 
-  function displayQuestion() {
-      questionContainer.innerText = `Câu số ${currentQuestion + 1}`;
-      answerInput.value = "";
-      
-  }
+// Displaying the question
+export function displayQuestion() {
+  questionContainer.innerText = `Câu số ${currentQuestion + 1}`;
+  answerInput.value = "";
+  
+}
 
-  function checkAnswer() {
-      const userAnswer = normalizeAnswer(answerInput.value.trim());
-      const correctAnswer = normalizeAnswer(currentTest.correctAnswers[currentQuestion]);
 
-      if (userAnswer === correctAnswer) {
-          currentQuestion++;
-          if (currentQuestion < currentTest.questions.length) {
-            displayQuestion();
-            feedback.innerText = `Câu ${currentQuestion} chính xác`;
-          } else {
-            feedback.innerText = "Chúc mừng! Bạn đã hoàn thành!";
-            submitAnswerButton.style.display = "none";
-            alert(`Chúc mừng! Bạn đã HOÀN THÀNH đoạn ${nameModel}`);
-          }
+// Checking the answer of the user
+export function checkAnswer() {
+  const userAnswer = normalizeAnswer(answerInput.value.trim());
+  const correctAnswer = normalizeAnswer(currentTest.correctAnswers[currentQuestion]);
+
+  if (userAnswer === correctAnswer) {
+      currentQuestion++;
+      if (currentQuestion < currentTest.questions.length) {
+        displayQuestion();
+        feedback.innerText = `Câu ${currentQuestion} chính xác`;
       } else {
-          var verseNumber = currentQuestion + 1;
-          feedback.innerText = "Sai rồi! Bắt đầu lại từ đầu.";
-          alert(`Câu ${verseNumber} chưa chính xác:\nĐáp án: ${correctAnswer}\nBạn nhập: ${userAnswer}`);
-          currentQuestion = 0;
-          displayQuestion();
+        feedback.innerText = "Chúc mừng! Bạn đã hoàn thành!";
+        submitAnswerButton.style.display = "none";
+        alert(`Chúc mừng! Bạn đã HOÀN THÀNH đoạn ${nameModel}`);
       }
-  }
-
-  document.getElementById("test1").addEventListener("click", () => {
-      currentTest = tests.test1;
-      nameModel = document.getElementById("test1").innerText;
-      startTest();
-  });
-
-  document.getElementById("test2").addEventListener("click", () => {
-      currentTest = tests.test2;
-      nameModel = document.getElementById("test2").innerText;
-      startTest();
-  });
-
-  function startTest() {
-      selectContainer.style.display = "none";
-      questionContainer.style.display = "block";
-      answerInput.style.display = "block";
-      submitAnswerButton.style.display = "block";
-      homeButton.style.display = "block"
+  } else {
+      var verseNumber = currentQuestion + 1;
+      feedback.innerText = "Sai rồi! Bắt đầu lại từ đầu.";
+      alert(`Câu ${verseNumber} chưa chính xác:\nĐáp án: ${correctAnswer}\nBạn nhập: ${userAnswer}`);
       currentQuestion = 0;
       displayQuestion();
   }
+}
 
-  homeButton.addEventListener("click", () => {
-    selectContainer.style.display = "block";
-    questionContainer.style.display = "none";
-    answerInput.style.display = "none";
-    submitAnswerButton.style.display = "none";
-    homeButton.style.display = "none";
-    feedback.innerText = "";
-});
+console.log('done run test page');
 
-  submitAnswerButton.addEventListener("click", checkAnswer);
-  answerInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-          checkAnswer();
-      }
-  });
-});
