@@ -1,3 +1,4 @@
+import { currentTest, nameModel } from "./homePage.js";
 
 export const tests = {
   phiLipVerses: { // I Phi-líp đoạn 2 câu 1 đến câu 18.
@@ -104,9 +105,14 @@ export const tests = {
   }
 };
 
-let currentTest;
-let nameModel; // Địa chỉ Kinh Thánh
-let currentQuestion = 0;
+const selectContainer = document.querySelector(".select-container");
+const questionContainer = document.getElementById("question-container");
+const answerInput = document.getElementById("answer-input");
+const submitAnswerButton = document.getElementById("submit-answer");
+const feedback = document.getElementById("feedback");
+const homeButton = document.getElementById("home-button");
+
+export let currentQuestion = 0;
 
 // Reduce the blank '' in the end of the verse
 export function normalizeAnswer(answer) {
@@ -115,15 +121,29 @@ export function normalizeAnswer(answer) {
 
 
 // Displaying the question
-export function displayQuestion() {
-  questionContainer.innerText = `Câu số ${currentQuestion + 1}`;
+function displayQuestion() {
+  console.log("quesion display");
+  
+  let html = `Câu số ${currentQuestion + 1}`;
+  document.querySelector('.question-container').innerHTML = html;
+
+  // questionContainer.innerText = `Câu số ${currentQuestion + 1}`;
   answerInput.value = "";
   
 }
 
+displayQuestion();
+console.log(currentTest);
+
+
+submitAnswerButton.addEventListener("click", () => {
+  
+  checkAnswer(currentTest);
+});
+
 
 // Checking the answer of the user
-export function checkAnswer() {
+export function checkAnswer(currentTest) {
   const userAnswer = normalizeAnswer(answerInput.value.trim());
   const correctAnswer = normalizeAnswer(currentTest.correctAnswers[currentQuestion]);
 
@@ -146,10 +166,13 @@ export function checkAnswer() {
   }
 }
 
-export function startTest() {
-  currentQuestion = 0;
-  displayQuestion();
-}
+answerInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    checkAnswer();
+  }
+});
+
 
 console.log('done run test page');
 
