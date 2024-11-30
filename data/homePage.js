@@ -11,22 +11,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const feedback = document.getElementById("feedback");
   const homeButton = document.getElementById("home-button");
 
-  
-
-  
-
   document.querySelector('.js-option-phi-lip-button').addEventListener("click", () => {
-    console.log('Run');
-    
-      currentTest = tests.phiLipVerses;
-      nameModel = document.querySelector('.js-option-phi-lip-button').innerText;
-      startTest();
+    window.location.href = 'testPage.html';
+    console.log('Phi-líp Test Run');
+
+    currentTest = tests.phiLipVerses;
+    nameModel = document.querySelector('.js-option-phi-lip-button').innerText;
+    startTest();
   });
 
   document.querySelector('.js-option-demo-button').addEventListener('click', () => {
-      currentTest = tests.demoVerses;
-      nameModel = document.querySelector('.js-option-demo-button').innerText;
-      startTest();
+    window.location.href = 'testPage.html';
+    console.log('Demo Test Run');
+
+    currentTest = tests.demoVerses;
+    nameModel = document.querySelector('.js-option-demo-button').innerText;
+    startTest();
   });
 
 
@@ -36,10 +36,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   answerInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-          checkAnswer();
-      }
+    if (e.key === "Enter") {
+      e.preventDefault();
+      checkAnswer();
+    }
   });
 });
 
