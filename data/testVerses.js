@@ -39,28 +39,5 @@ export const tests = {
       // Câu 18
       "Anh em cũng vậy, hãy vui lòng về điều đó, và hãy cùng vui với tôi."
     ]
-  },
-  // practiceVerses: { // Demo
-  //   nameModel:'LUYE: Phi 2:1-18',
-  //   correctAnswers: [
-  //     "1",
-  //     "2",
-  //     "3",
-  //     "4",
-  //     "5",
-  //     "6",
-  //     "7",
-  //     "8",
-  //     "9",
-  //     "10",
-  //     "11",
-  //     "12",
-  //     "13",
-  //     "14",
-  //     "15",
-  //     "16",
-  //     "17",
-  //     "18",
-  //   ]
-  // }
+  }
 };

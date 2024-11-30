@@ -2,10 +2,7 @@ import { tests } from "./testVerses.js";
 
 console.log('home page');
 
-const phiLipButton = document.querySelector('.js-option-phi-lip-button');
-const luyenTapButton = document.querySelector('.js-option-practice-button');
-
-phiLipButton.addEventListener('click',() => {
+document.querySelector('.js-option-phi-lip-button').addEventListener('click',() => {
   
   const verseName = tests.phiLipVerses.nameModel;
   const verseModel = 'Testing';
@@ -20,8 +17,7 @@ phiLipButton.addEventListener('click',() => {
   
 });
   
-
-luyenTapButton.addEventListener('click',() => {
+document.querySelector('.js-option-practice-button').addEventListener('click',() => {
   currentTest = 'LT: '+ tests.phiLipVerses.nameModel;
   console.log(currentTest);
   window.location.href = '../testPage.html';

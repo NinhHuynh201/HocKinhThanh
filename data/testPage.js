@@ -1,6 +1,17 @@
-
 console.log('Test page');
 
+const userChoice = JSON.parse(localStorage.getItem('currentTest'));
+console.log("🚀 ~ userChoice:", userChoice);
+
+let currentQuestion = 1;
+
+function displayQuestion(data, currentQuestion){
+  document.querySelector('.question-container').innerHTML = `
+    [${data.name}] Câu hỏi số ${currentQuestion}
+  `;
+};
+
+displayQuestion(userChoice, currentQuestion);
 
 // export const tests = {
 //   phiLipVerses: { // I Phi-líp đoạn 2 câu 1 đến câu 18.
