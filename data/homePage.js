@@ -29,20 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
       startTest();
   });
 
-  function startTest() {
-      selectContainer.style.display = "none";
-      currentQuestion = 0;
-      displayQuestion();
-  }
 
-  homeButton.addEventListener("click", () => {
-    selectContainer.style.display = "block";
-    questionContainer.style.display = "none";
-    answerInput.style.display = "none";
-    submitAnswerButton.style.display = "none";
-    homeButton.style.display = "none";
-    feedback.innerText = "";
-});
 
   submitAnswerButton.addEventListener("click", () => {
     checkAnswer();

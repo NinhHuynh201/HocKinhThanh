@@ -146,5 +146,10 @@ export function checkAnswer() {
   }
 }
 
+export function startTest() {
+  currentQuestion = 0;
+  displayQuestion();
+}
+
 console.log('done run test page');
 
