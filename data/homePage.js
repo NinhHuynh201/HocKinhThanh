@@ -1,25 +1,32 @@
-import { tests } from '../data/testPage.js';
+import { tests } from "./testVerses.js";
 
 console.log('home page');
 
-export let currentTest;
-export let nameModel; // Địa chỉ Kinh Thánh
+const phiLipButton = document.querySelector('.js-option-phi-lip-button');
+const luyenTapButton = document.querySelector('.js-option-practice-button');
 
+phiLipButton.addEventListener('click',() => {
+  
+  const verseName = tests.phiLipVerses.nameModel;
+  const verseModel = 'Testing';
+  const verseData = {
+    name: verseName,
+    model: verseModel
+  };
+  
+  localStorage.setItem('currentTest', JSON.stringify(verseData));
+  
+  window.location.href = '../testPage.html';
+  
+});
+  
 
-  document.querySelector('.js-option-phi-lip-button').addEventListener('click', () => {
-    currentTest = tests.phiLipVerses;
-    nameModel = document.querySelector('.js-option-demo-button').innerText;
-    window.location.href = '../testPage.html';
-  });
-
-  // document.querySelector('.js-option-demo-button').addEventListener('click', () => {
-  //   window.location.href = 'testPage.html';
-  //   console.log('Demo Test Run');
-
-  //   currentTest = tests.demoVerses;
-  //   nameModel = document.querySelector('.js-option-demo-button').innerText;
-  //   startTest();
-  // });
+luyenTapButton.addEventListener('click',() => {
+  currentTest = 'LT: '+ tests.phiLipVerses.nameModel;
+  console.log(currentTest);
+  window.location.href = '../testPage.html';
+  
+});
 
 
 
