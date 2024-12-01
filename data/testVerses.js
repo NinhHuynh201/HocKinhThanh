@@ -44,32 +44,37 @@ export const tests = {
   }
 };
 
-export function kiemTra(string1, string2) {
+export function kiemTra(userInput, correctAnswer) {
   const results = [];
 
-  const cleanedString1 = string1.replace(/\W+/g, '');
-  const cleanedString2 = string2.replace(/\W+/g, '');
+  const cleaneduserInput = userInput.replace(/\W+/g, '');
+  const cleanedcorrectAnswer = correctAnswer.replace(/\W+/g, '');
   
-  if (string1 === string2) {
+  if (userInput === correctAnswer) {
     // Đúng chính xác hoàn toàn
     results.push("Chính xác từng chữ.");
 
-  } else if (string1.trim() === string2.trim()) {
+  } else if (userInput.trim() === correctAnswer.trim()) {
     // Sai khoảng cách (whitespace)
     results.push("Cuối câu dư khoảng cách.");
 
   } else if (
-    string1.toLowerCase() === string2.toLowerCase()) {
+    userInput.toLowerCase() === correctAnswer.toLowerCase()) {
     // Sai viết hoa
     results.push("Viết hoa chưa đúng.");
 
-  } else if (string1.replace(/\s+/g, ' ') === string2.replace(/\s+/g, ' ')) {
+  } else if (userInput.replace(/\s+/g, ' ') === correctAnswer.replace(/\s+/g, ' ')) {
     // Sai dấu cách ở giữa (extra spaces)
     results.push("Dư khoảng cách (_space_).");
 
-  } else if (cleanedString1 === cleanedString2) {
+  } else if (cleaneduserInput === cleanedcorrectAnswer) {
     // Sai ký tự đặc biệt
     results.push("Sai các ký tự đặc biệt như , .");
+    
+  } else if (userInput === "") {
+    // Để trống
+    results.push('Không được để trống');
+
   } else {
     return results;
   }
