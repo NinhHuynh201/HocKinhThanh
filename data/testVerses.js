@@ -39,62 +39,40 @@ const bibleVerses = [
 
 export const tests = {
   phiLipVerses: { // I Phi-líp đoạn 2 câu 1 đến câu 18.
-    nameModel : 'Phi-líp 2 : 1 - 18',
+    nameModel: 'Phi-líp 2 : 1 - 18',
     correctAnswers: bibleVerses
   }
 };
 
-function kiemTra(string1, string2) {
+export function kiemTra(string1, string2) {
   const results = [];
 
-  // Đúng chính xác hoàn toàn
-  if (string1 === string2) {
-      results.push("Chính xác từng chữ.");
-  }
-
-  // Sai khoảng cách (whitespace)
-  if (string1.trim() === string2.trim()) {
-      results.push("Cuối câu dư khoảng cách.");
-  }
-
-  // Sai viết hoa
-  if (string1.toLowerCase() === string2.toLowerCase()) {
-      results.push("Viết hoa chưa đúng.");
-  }
-
-  // Sai dấu cách ở giữa (extra spaces)
-  if (string1.replace(/\s+/g, ' ') === string2.replace(/\s+/g, ' ')) {
-      results.push("Dư khoảng cách (_space_).");
-  }
-
-  // Sai ký tự đặc biệt
   const cleanedString1 = string1.replace(/\W+/g, '');
   const cleanedString2 = string2.replace(/\W+/g, '');
-  if (cleanedString1 === cleanedString2) {
-      results.push("Strings are the same except for special characters");
+  
+  if (string1 === string2) {
+    // Đúng chính xác hoàn toàn
+    results.push("Chính xác từng chữ.");
+
+  } else if (string1.trim() === string2.trim()) {
+    // Sai khoảng cách (whitespace)
+    results.push("Cuối câu dư khoảng cách.");
+
+  } else if (
+    string1.toLowerCase() === string2.toLowerCase()) {
+    // Sai viết hoa
+    results.push("Viết hoa chưa đúng.");
+
+  } else if (string1.replace(/\s+/g, ' ') === string2.replace(/\s+/g, ' ')) {
+    // Sai dấu cách ở giữa (extra spaces)
+    results.push("Dư khoảng cách (_space_).");
+
+  } else if (cleanedString1 === cleanedString2) {
+    // Sai ký tự đặc biệt
+    results.push("Sai các ký tự đặc biệt như , .");
+  } else {
+    return results;
   }
-
-  // So sánh ký tự tương ứng
-  // let areCharactersSame = true;
-  // for (let i = 0; i < Math.max(string1.length, string2.length); i++) {
-  //     if (string1[i] !== string2[i]) {
-  //         areCharactersSame = false;
-  //         break;
-  //     }
-  // }
-  // if (areCharactersSame) {
-  //     results.push("Each character in the strings matches exactly");
-  // }
-
-  // Kết quả
-  if (results.length === 0) {
-      results.push("Bỏ trống");
-  }
-
-  results.forEach(result => console.log(result));
+  return results;
 }
 
-// Sử dụng hàm
-kiemTra("Hello World", "hello world");
-kiemTra("  Hello   World  ", "Hello World");
-kiemTra("Hello-World!", "helloworld");

@@ -1,4 +1,4 @@
-import { tests } from "./testVerses.js";
+import { tests, kiemTra } from "./testVerses.js";
 
 console.log('Test page');
 
@@ -21,23 +21,29 @@ function displayQuestion(data, currentQuestion){
 
 function checkAnswer(currentQuestion){
   const userAnswer = document.querySelector('.answer-input').value.trim();
+  
   const finalAnswer = tests.phiLipVerses.correctAnswers[currentQuestion-1];
+  
+  console.log("🚀 ~ checkAnswer ~ userAnswer:", userAnswer);
+  console.log("🚀 ~ checkAnswer ~ finalAnswer:", finalAnswer);
+  
+  const nhanXet = kiemTra(userAnswer, finalAnswer);
 
-  console.log(userAnswer);
-  console.log(finalAnswer);
-    
+  console.log("🚀 ~ checkAnswer ~ kiemTra(userAnswer, finalAnswer);:", kiemTra(userAnswer, finalAnswer));
+     
+  // Kết quả
+  if (nhanXet.length === 0) {
+    console.log("Nhận xét: Sai!");
+  }
 }
+  
 
 document.getElementById('submit-answer').addEventListener('click',() => {
-  console.log(document.querySelector('.answer-input').value);
   checkAnswer(1);
   
 });
 
-// Reduce the blank '' in the end of the verse
-function normalizeAnswer(answer) {
-  return answer.trim().replace(/\.+$/, '');
-}
+
 
 // const selectContainer = document.querySelector(".select-container");
 // const questionContainer = document.getElementById("question-container");
@@ -53,10 +59,7 @@ function normalizeAnswer(answer) {
 
 
 
-// submitAnswerButton.addEventListener("click", () => {
-  
-//   checkAnswer(currentTest);
-// });
+
 
 
 // // Checking the answer of the user
