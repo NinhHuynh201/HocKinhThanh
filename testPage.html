@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <link rel="stylesheet" type="text/css" href="totalPage.css">
+  <link rel="stylesheet" type="text/css" href="testPageCSS.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <title>Học Kinh Thánh cùng Ninh</title>
 </head>
@@ -11,24 +11,36 @@
 
   <div class="container">
 
-    <a href="homePage.html">
-      <button id="home-button" style="display: block; height: fit-content;">
-        <i class="fas fa-home"> 
-          Home Page 
-        </i>
-      </button>
-    </a>
+    <div class="result-container">
+      <div class="show-result-container"></div>
+      <div id="feedback">Nhận xét</div>
+    </div>
 
-    <h1>Học Kinh Thánh cùng Ninh</h1>
+    <div class="answer-container">
 
-    <h2 class="question-container" style="display: block;">Model - Câu hỏi số 1</h2>
+      <a href="homePage.html">
+        <button id="home-button" style="display: block; height: fit-content;">
+          <i class="fas fa-home">
+            Home Page
+          </i>
+        </button>
+      </a>
 
-    <textarea class="answer-input" style="display: block;" placeholder="Nhập câu trả lời của bạn"></textarea>
+      <h1>Học Kinh Thánh cùng Ninh</h1>
 
-    <button id="submit-answer" style="display: block;">Xác nhận</button>
+      <h2 class="question-container" style="display: block;">Model - Câu hỏi số 1</h2>
 
-    <div id="feedback">Nhận xét</div>
+      <textarea class="answer-input" style="display: block;" placeholder="Nhập câu trả lời của bạn"></textarea>
+
+      <button id="submit-answer" style="display: block;">Xác nhận</button>
+
+
+    </div>
+
+
+
   </div>
+
 
   <script src="/data/testPage.js" type="module"></script>
 </body>
