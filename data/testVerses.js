@@ -44,36 +44,36 @@ export const tests = {
   }
 };
 
-export function kiemTra(userInput, correctAnswer) {
+export function kiemTraChinhTa(userInput, correctAnswer) {
   const results = [];
 
-  const cleaneduserInput = userInput.replace(/\W+/g, '');
-  const cleanedcorrectAnswer = correctAnswer.replace(/\W+/g, '');
+  let cleaneduserInput = userInput.replace(/\W+/g, '');
+  let cleanedcorrectAnswer = correctAnswer.replace(/\W+/g, '');
   
   if (userInput === correctAnswer) {
     // Đúng chính xác hoàn toàn
-    results.push("Chính xác từng chữ.");
+    results.push("NHẬN XÉT: Chính xác từng chữ.");
 
   } else if (userInput.trim() === correctAnswer.trim()) {
     // Sai khoảng cách (whitespace)
-    results.push("Cuối câu dư khoảng cách.");
+    results.push("NHẬN XÉT: Cuối câu dư khoảng cách.");
 
   } else if (
     userInput.toLowerCase() === correctAnswer.toLowerCase()) {
     // Sai viết hoa
-    results.push("Viết hoa chưa đúng.");
+    results.push("NHẬN XÉT: Viết hoa chưa đúng.");
 
   } else if (userInput.replace(/\s+/g, ' ') === correctAnswer.replace(/\s+/g, ' ')) {
     // Sai dấu cách ở giữa (extra spaces)
-    results.push("Dư khoảng cách (_space_).");
+    results.push("NHẬN XÉT: Dư khoảng cách (_space_).");
 
   } else if (cleaneduserInput === cleanedcorrectAnswer) {
     // Sai ký tự đặc biệt
-    results.push("Sai các ký tự đặc biệt như , .");
+    results.push("NHẬN XÉT: Sai các ký tự đặc biệt như , .");
     
   } else if (userInput === "") {
     // Để trống
-    results.push('Không được để trống');
+    results.push('NHẬN XÉT: Không được để trống');
 
   } else {
     return results;
