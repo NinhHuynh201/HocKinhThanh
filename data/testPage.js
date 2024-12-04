@@ -15,7 +15,25 @@ if (userChoice.model === 'test') {
 
   displayQuestion(userChoice, currentQuestion);
 
-  document.querySelector('.submit-answer-button').addEventListener('click', () => {
+  document.querySelector('.answer-input').onkeydown = function (e) {
+    if(e.key === 'Enter'){
+      if (testModel(currentQuestion)) {
+        currentQuestion++;
+  
+        if (currentQuestion <= tests.phiLipVerses.correctAnswers.length) {
+          displayQuestion(userChoice, currentQuestion);
+  
+        } else {
+          // Nếu đã hết câu hỏi, thông báo kết thúc bài kiểm tra
+          alert('Bạn đã hoàn thành bài kiểm tra!');
+          document.querySelector('.feedback').innerText = 'HOÀN THÀNH 100%';
+  
+        }
+      }
+    }
+  }
+  
+  document.querySelector('.submit-answer-button').onclick  = function () {
     if (testModel(currentQuestion)) {
       currentQuestion++;
 
@@ -26,9 +44,11 @@ if (userChoice.model === 'test') {
         // Nếu đã hết câu hỏi, thông báo kết thúc bài kiểm tra
         alert('Bạn đã hoàn thành bài kiểm tra!');
         document.querySelector('.feedback').innerText = 'HOÀN THÀNH 100%';
+
       }
     }
-  });
+
+  };
 
 
 
@@ -49,6 +69,7 @@ function testModel(currentQuestion) {
     ${tests.phiLipVerses.correctAnswers[currentQuestion - 1]}`;
     document.querySelector('.answer-input').value = '';
     alert("Bắt đầu lại từ đầu.");
+    resetButtonVisible();
     return false;
   }
 
@@ -66,11 +87,19 @@ function practiceModel() {
   hideDivByClass('.submit-answer-button');
   displayChoosePracticeVerse();
 
-  document.querySelector('.number-verse-input').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      numberVerseHandler(e);
+  const verInput = document.querySelector('.number-verse-input')
+  verInput.onkeydown = function (event) {
+    if (event.key === 'Enter') {
+      numberVerseHandler(event);
     }
-  });
+  };
+
+
+  // document.querySelector('.number-verse-input').addEventListener('keypress', (e) => {
+  //   if (e.key === 'Enter') {
+  //     numberVerseHandler(e);
+  //   }
+  // });
 
   hideShowResultWhenClicked();
 
@@ -117,14 +146,21 @@ function numberVerseHandler(e) {
     showDivByClass('.show-result-container');
 
 
+    document.querySelector('.submit-answer-button').onclick = function () {
+      submitVerseHandler(chosenVerse);
+    }
 
-    document.querySelector('.submit-answer-button').addEventListener('click', () => submitVerseHandler(chosenVerse));
-
-    document.querySelector('.answer-input').addEventListener('keypress', (e) => {
+    document.querySelector('.answer-input').onkeydown = function (e) {
       if (e.key === "Enter") {
         answerInputHandler(e, chosenVerse);
       }
-    });
+    };
+
+    // document.querySelector('.answer-input').addEventListener('keypress', (e) => {
+    //   if (e.key === "Enter") {
+    //     answerInputHandler(e, chosenVerse);
+    //   }
+    // });
 
   } else {
     alert('Số câu không hợp lệ');
@@ -137,7 +173,8 @@ function numberVerseHandler(e) {
 function answerInputHandler(e, chosenVerse) {
   console.log('func answerInputHandler : ' + chosenVerse);
   if (e.key === 'Enter') {
-    e.preventDefault(); submitVerseHandler(chosenVerse);
+    e.preventDefault();
+    submitVerseHandler(chosenVerse);
   }
 }
 
@@ -151,6 +188,7 @@ function submitVerseHandler(chosenVerse) {
     
     ${chosenVerse}. 
     ${tests.phiLipVerses.correctAnswers[chosenVerse - 1]}`;
+    resetButtonVisible();
 
   } else {
 
@@ -208,13 +246,12 @@ function displayChoosePracticeVerse() {
   `;
 }
 
-/*
-function resetHandler(chosenVerse) {
+
+function resetHandler() {
   // 1. Reset lại các giá trị trong giao diện
   document.querySelector('.show-result-container').innerHTML = "";
   document.querySelector('.feedback').innerHTML = "";
   document.querySelector('.answer-input').value = "";
-  // document.querySelector('.number-verse-input').value = "";
 
   // 2. Ẩn tất cả các div liên quan
   hideDivByClass('.reset-button');
@@ -225,26 +262,31 @@ function resetHandler(chosenVerse) {
 
 
   // 4. Reset lại trạng thái của các biến toàn cục
-  verseCount = 0;
   userChoice = JSON.parse(localStorage.getItem('currentTest')); // Đảm bảo lấy lại dữ liệu người dùng
-  currentQuestion = 1;
 
   // 5. Chạy lại logic khởi tạo ban đầu
   if (userChoice.model === 'practice') {
+    
     practiceModel(); // Khởi tạo lại chế độ luyện tập
   } else if (userChoice.model === 'test') {
+
+    let currentQuestion = 1;
     displayQuestion(userChoice, currentQuestion); // Khởi tạo chế độ bài test
+    
   }
 }
 
-function resetButtonVisible(chosenVerse) {
+function resetButtonVisible() {
   showDivByClass('.reset-button');
 
 
-  document.querySelector('.reset-button').addEventListener('click', resetHandler(chosenVerse));
+  const resetButton = document.querySelector('.reset-button');
+  resetButton.onclick = function () {
+    resetHandler();
+  }
 
 
 
 }
-*/
+
 
