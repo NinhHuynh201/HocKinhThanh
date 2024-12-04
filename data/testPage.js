@@ -1,6 +1,6 @@
 import { tests, kiemTraChinhTa } from "./testVerses.js";
 
-console.log('Test page');
+console.log('This is Test page');
 
 let userChoice = JSON.parse(localStorage.getItem('currentTest'));
 console.log('Running model: ' + userChoice.model);
@@ -11,56 +11,56 @@ hideDivByClass('.reset-button');
 /** ******* TEST MODEL ********* */
 if (userChoice.model === 'test') {
 
-  let currentQuestion = 1;
+  testModel(1);
+} else if (userChoice.model === 'practice') {
+  practiceModel();
+
+} else {
+  throw new Error("user choice is error!");
+
+}
+
+// Test Model
+function testModel(currentQuestion) {
 
   displayQuestion(userChoice, currentQuestion);
 
   document.querySelector('.answer-input').onkeydown = function (e) {
-    if(e.key === 'Enter'){
-      if (testModel(currentQuestion)) {
-        currentQuestion++;
-  
-        if (currentQuestion <= tests.phiLipVerses.correctAnswers.length) {
-          displayQuestion(userChoice, currentQuestion);
-  
-        } else {
-          // Nếu đã hết câu hỏi, thông báo kết thúc bài kiểm tra
-          alert('Bạn đã hoàn thành bài kiểm tra!');
-          document.querySelector('.feedback').innerText = 'HOÀN THÀNH 100%';
-  
-        }
-      }
+    if (e.key === 'Enter') {
+      testCheckingAnswer(currentQuestion);
     }
   }
-  
-  document.querySelector('.submit-answer-button').onclick  = function () {
-    if (testModel(currentQuestion)) {
-      currentQuestion++;
 
-      if (currentQuestion <= tests.phiLipVerses.correctAnswers.length) {
-        displayQuestion(userChoice, currentQuestion);
-
-      } else {
-        // Nếu đã hết câu hỏi, thông báo kết thúc bài kiểm tra
-        alert('Bạn đã hoàn thành bài kiểm tra!');
-        document.querySelector('.feedback').innerText = 'HOÀN THÀNH 100%';
-
-      }
-    }
-
+  document.querySelector('.submit-answer-button').onclick = function () {
+    testCheckingAnswer(currentQuestion);
   };
-
-
 
 }
 
-function testModel(currentQuestion) {
-  if (checkAnswer(currentQuestion)) {// true
-    document.querySelector('.answer-input').value = '';
-    return true;
-  } else {
+function testCheckingAnswer(currentQuestion) {
+  // Khung kết quả tự động chuyển xuống
+  const scrollalbeDiv = document.querySelector('.show-result-container');
+  scrollalbeDiv.scrollTop = scrollalbeDiv.scrollHeight;
 
-    document.querySelector('.show-result-container').innerHTML += `
+  if (checkAnswer(currentQuestion)) {// true
+    // Xóa nội dung vừa submit
+    document.querySelector('.answer-input').value = '';
+
+    currentQuestion++; // số câu tiếp theo
+
+    if (currentQuestion <= tests.phiLipVerses.correctAnswers.length) {
+
+      testModel(currentQuestion); // Callback
+
+    } else {
+      // Nếu đã hết câu hỏi, thông báo kết thúc bài kiểm tra
+      alert('Bạn đã hoàn thành bài kiểm tra!');
+      document.querySelector('.feedback').innerText = 'HOÀN THÀNH 100%';
+      resetButtonVisible();
+
+    }
+  } else {
+    scrollalbeDiv.innerHTML += `
     <div style="color: red; padding-bottom: 5px;">
     ${currentQuestion}. 
     ${document.querySelector('.answer-input').value}</div>
@@ -70,17 +70,10 @@ function testModel(currentQuestion) {
     document.querySelector('.answer-input').value = '';
     alert("Bắt đầu lại từ đầu.");
     resetButtonVisible();
-    return false;
   }
-
 }
 
-/** ******* PRACTICE MODEL ********* */
-if (userChoice.model === 'practice') {
-  practiceModel();
-
-}
-
+// Practice Model
 function practiceModel() {
   hideDivByClass('.reset-button');
   hideDivByClass('.answer-input');
@@ -94,17 +87,11 @@ function practiceModel() {
     }
   };
 
-
-  // document.querySelector('.number-verse-input').addEventListener('keypress', (e) => {
-  //   if (e.key === 'Enter') {
-  //     numberVerseHandler(e);
-  //   }
-  // });
-
   hideShowResultWhenClicked();
 
 }
 
+// Check each asnwer depending on the current question
 function checkAnswer(currentQuestion) {
 
   let userAnswer = document.querySelector('.answer-input').value;
@@ -156,22 +143,14 @@ function numberVerseHandler(e) {
       }
     };
 
-    // document.querySelector('.answer-input').addEventListener('keypress', (e) => {
-    //   if (e.key === "Enter") {
-    //     answerInputHandler(e, chosenVerse);
-    //   }
-    // });
-
   } else {
     alert('Số câu không hợp lệ');
     document.querySelector('.number-verse-input').value = '';
-
   }
 
 }
 
 function answerInputHandler(e, chosenVerse) {
-  console.log('func answerInputHandler : ' + chosenVerse);
   if (e.key === 'Enter') {
     e.preventDefault();
     submitVerseHandler(chosenVerse);
@@ -179,6 +158,7 @@ function answerInputHandler(e, chosenVerse) {
 }
 
 function submitVerseHandler(chosenVerse) {
+  console.log('Đã kiểm tra câu KT số ' + chosenVerse);
 
   if (checkAnswer(chosenVerse) == true) {
     document.querySelector('.show-result-container').innerHTML = `
@@ -255,38 +235,29 @@ function resetHandler() {
 
   // 2. Ẩn tất cả các div liên quan
   hideDivByClass('.reset-button');
-  hideDivByClass('.answer-input');
-  hideDivByClass('.submit-answer-button');
-  hideDivByClass('.feedback');
-  hideDivByClass('.show-result-container');
-
 
   // 4. Reset lại trạng thái của các biến toàn cục
   userChoice = JSON.parse(localStorage.getItem('currentTest')); // Đảm bảo lấy lại dữ liệu người dùng
 
   // 5. Chạy lại logic khởi tạo ban đầu
   if (userChoice.model === 'practice') {
-    
+    hideDivByClass('.answer-input');
+    hideDivByClass('.submit-answer-button');
+    hideDivByClass('.feedback');
+    hideDivByClass('.show-result-container');
     practiceModel(); // Khởi tạo lại chế độ luyện tập
-  } else if (userChoice.model === 'test') {
 
-    let currentQuestion = 1;
-    displayQuestion(userChoice, currentQuestion); // Khởi tạo chế độ bài test
-    
+  } else if (userChoice.model === 'test') {
+    testModel(1); // Khởi tạo chế độ bài test
+
   }
 }
 
 function resetButtonVisible() {
   showDivByClass('.reset-button');
 
-
-  const resetButton = document.querySelector('.reset-button');
-  resetButton.onclick = function () {
+  document.querySelector('.reset-button').onclick = function () {
     resetHandler();
   }
 
-
-
 }
-
-
