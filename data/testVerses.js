@@ -22,7 +22,7 @@ const phiLipVerses = [
   // Câu 11
   "và mọi lưỡi thảy đều xưng Giê-xu Christ là Chúa, mà tôn vinh Đức Chúa Trời, là Đức Chúa Cha.",
   // Câu 12
-  "Ấy vậy, hỡi những kẻ rất yêu dấu của tôi, như anh em đã vâng lời luôn luôn, chẳng những khi tôi có mặt mà thôi,lại bây giờ là lúc tôi vắng mặt, hãy càng hơn nữa, mà lấy lòng sợ sệt run rẩy làm nên sự cứu chuộc mình.",
+  "Ấy vậy, hỡi những kẻ rất yêu dấu của tôi, như anh em đã vâng lời luôn luôn, chẳng những khi tôi có mặt mà thôi, lại bây giờ là lúc tôi vắng mặt, hãy càng hơn nữa, mà lấy lòng sợ sệt run rẩy làm nên sự cứu chuộc mình.",
   // Câu 13
   "Vì ấy chính Đức Chúa Trời cảm động lòng anh em vừa muốn vừa làm theo ý tốt Ngài.",
   // Câu 14

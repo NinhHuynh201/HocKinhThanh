@@ -27,6 +27,7 @@ function testModel(currentQuestion) {
 
   document.querySelector('.answer-input').onkeydown = function (e) {
     if (e.key === 'Enter') {
+      e.preventDefault();
       testCheckingAnswer(userChoice, currentQuestion);
     }
   }
@@ -166,6 +167,7 @@ function numberVerseHandler(chosenVerse) {
 
   document.querySelector('.answer-input').onkeydown = function (e) {
     if (e.key === "Enter") {
+      e.preventDefault();
       answerInputHandler(e, chosenVerse, userChoice);
     }
   };
