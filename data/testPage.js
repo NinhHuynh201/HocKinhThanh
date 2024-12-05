@@ -1,13 +1,8 @@
-import { data, kiemTraChinhTa } from "./testVerses.js";
+import { kiemTraChinhTa } from "./testVerses.js";
 
 console.log('This is Test page');
 
 let userChoice = JSON.parse(localStorage.getItem('currentTest'));
-
-console.log('Runing model name: ' + userChoice.name);
-
-console.log('Running model: ' + userChoice.model);
-console.log('Runing data: ' + userChoice.data);
 
 hideDivByClass('.reset-button');
 hideDivByClass('.completed-text');
@@ -17,7 +12,7 @@ if (userChoice.model === 'test') {
 
   testModel(1);
 } else if (userChoice.model === 'practice') {
-  practiceModel();
+  practiceModel(userChoice);
 
 } else {
   throw new Error("user choice is error!");
@@ -51,7 +46,7 @@ function testCheckingAnswer(userChoice, currentQuestion) {
     document.querySelector('.answer-input').value = '';
 
     currentQuestion++; // số câu tiếp theo
-    
+
     if (currentQuestion <= userChoice.data.length) {
 
       testModel(currentQuestion); // Callback
@@ -79,16 +74,23 @@ function testCheckingAnswer(userChoice, currentQuestion) {
 }
 
 // Practice Model
-function practiceModel() {
+function practiceModel(userChoice) {
   hideDivByClass('.reset-button');
   hideDivByClass('.answer-input');
   hideDivByClass('.submit-answer-button');
   displayChoosePracticeVerse();
+  document.querySelector('.number-verse-input').onkeydown = function (event) {
+    let chosenVerse = document.querySelector('.number-verse-input').value;
 
-  const verInput = document.querySelector('.number-verse-input')
-  verInput.onkeydown = function (event) {
     if (event.key === 'Enter') {
-      numberVerseHandler(event);
+      event.preventDefault();
+      if (chosenVerse >= 1 && chosenVerse <= userChoice.data.length) {
+        numberVerseHandler(chosenVerse);
+      } else {
+        alert('Số câu không hợp lệ');
+        practiceModel(userChoice);
+      }
+
     }
   };
 
@@ -98,13 +100,9 @@ function practiceModel() {
 
 // Check each asnwer depending on the current question
 function checkAnswer(userChoice, currentQuestion) {
-console.log("🚀 ~ checkAnswer ~ currentQuestion:", currentQuestion);
-
   let userAnswer = document.querySelector('.answer-input').value;
 
   let finalAnswer = userChoice.data[currentQuestion - 1];
-  console.log("🚀 ~ checkAnswer ~ finalAnswer:", finalAnswer);
-
   let nhanXet = kiemTraChinhTa(userAnswer, finalAnswer);
 
   // Kết quả
@@ -127,34 +125,24 @@ console.log("🚀 ~ checkAnswer ~ currentQuestion:", currentQuestion);
 
 }
 
-function numberVerseHandler(e) {
-  let chosenVerse = document.querySelector('.number-verse-input').value;
+function numberVerseHandler(chosenVerse) {
 
-  e.preventDefault();
-
-  if (chosenVerse >= 1 && chosenVerse <= 18) {
-    showDivByClass('.answer-input');
-    showDivByClass('.submit-answer-button');
-    displayQuestion(userChoice, chosenVerse);
-    showDivByClass('.feedback');
-    showDivByClass('.show-result-container');
+  showDivByClass('.answer-input');
+  showDivByClass('.submit-answer-button');
+  displayQuestion(userChoice, chosenVerse);
+  showDivByClass('.feedback');
+  showDivByClass('.show-result-container');
 
 
-    document.querySelector('.submit-answer-button').onclick = function () {
-      submitVerseHandler(userChoice, chosenVerse);
-    }
-
-    document.querySelector('.answer-input').onkeydown = function (e) {
-      if (e.key === "Enter") {
-        answerInputHandler(e, chosenVerse, userChoice);
-      }
-    };
-
-  } else {
-    alert('Số câu không hợp lệ');
-    practiceModel();
-    //document.querySelector('.number-verse-input').value = '';
+  document.querySelector('.submit-answer-button').onclick = function () {
+    submitVerseHandler(userChoice, chosenVerse);
   }
+
+  document.querySelector('.answer-input').onkeydown = function (e) {
+    if (e.key === "Enter") {
+      answerInputHandler(e, chosenVerse, userChoice);
+    }
+  };
 
 }
 
@@ -253,7 +241,7 @@ function resetHandler() {
     hideDivByClass('.submit-answer-button');
     hideDivByClass('.feedback');
     hideDivByClass('.show-result-container');
-    practiceModel(); // Khởi tạo lại chế độ luyện tập
+    practiceModel(userChoice); // Khởi tạo lại chế độ luyện tập
 
   } else if (userChoice.model === 'test') {
     testModel(1); // Khởi tạo chế độ bài test
