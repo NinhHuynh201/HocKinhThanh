@@ -4,6 +4,7 @@ console.log('This is Test page');
 
 let userChoice = JSON.parse(localStorage.getItem('currentTest'));
 
+hideDivByClass('.invalid-number');
 hideDivByClass('.reset-button');
 hideDivByClass('.completed-text');
 
@@ -21,10 +22,6 @@ if (userChoice.model === 'test') {
 
 // Test Model
 function testModel(currentQuestion) {
-  if(document.querySelector('.invalid-number').style.display === 'block'){
-    hideDivByClass('.invalid-number');
-  }
-  
 
   displayQuestion(userChoice, currentQuestion);
 
