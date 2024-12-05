@@ -21,6 +21,10 @@ if (userChoice.model === 'test') {
 
 // Test Model
 function testModel(currentQuestion) {
+  if(document.querySelector('.invalid-number').style.display === 'block'){
+    hideDivByClass('.invalid-number');
+  }
+  
 
   displayQuestion(userChoice, currentQuestion);
 
