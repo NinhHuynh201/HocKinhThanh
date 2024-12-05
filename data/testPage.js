@@ -152,7 +152,8 @@ function numberVerseHandler(e) {
 
   } else {
     alert('Số câu không hợp lệ');
-    document.querySelector('.number-verse-input').value = '';
+    practiceModel();
+    //document.querySelector('.number-verse-input').value = '';
   }
 
 }
