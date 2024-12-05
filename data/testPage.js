@@ -82,22 +82,33 @@ function practiceModel(userChoice) {
 
   const verseInput = document.querySelector('.number-verse-input');
 
+  // Thêm timeout để chỉ xử lý khi người dùng nhấn Enter
+  let typingTimer;  // Biến để lưu thời gian nhập liệu
+
   verseInput.onkeydown = function (event) {
 
     let chosenVerse = verseInput.value;
 
     if (event.key === 'Enter') {
       event.preventDefault();
-      if (chosenVerse >= 1 
-        && chosenVerse <= userChoice.data.length 
-        && Number.isInteger(Number(chosenVerse))) {
-        numberVerseHandler(chosenVerse);
-      } else {
-        alert('Số câu không hợp lệ');
-        verseInput.value = '';
-      }
 
+      // Thực hiện kiểm tra sau một khoảng thời gian ngắn
+      clearTimeout(typingTimer); // Hủy bỏ timer cũ nếu có
 
+      typingTimer = setTimeout(function () {
+
+        if (chosenVerse >= 1 
+          && chosenVerse <= userChoice.data.length 
+          && Number.isInteger(Number(chosenVerse))) {
+          numberVerseHandler(chosenVerse);
+
+        } else {
+          alert('Số câu không hợp lệ');
+          verseInput.value = '';
+
+        }
+      }, 100); // Chỉ xử lý sau 100ms (tùy chỉnh giá trị này theo nhu cầu)
+    
     }
   };
 
