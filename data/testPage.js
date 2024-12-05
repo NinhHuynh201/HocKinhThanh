@@ -79,17 +79,24 @@ function practiceModel(userChoice) {
   hideDivByClass('.answer-input');
   hideDivByClass('.submit-answer-button');
   displayChoosePracticeVerse();
-  document.querySelector('.number-verse-input').onkeydown = function (event) {
-    let chosenVerse = document.querySelector('.number-verse-input').value;
+
+  const verseInput = document.querySelector('.number-verse-input');
+
+  verseInput.onkeydown = function (event) {
+
+    let chosenVerse = verseInput.value;
 
     if (event.key === 'Enter') {
       event.preventDefault();
-      if (chosenVerse >= 1 && chosenVerse <= userChoice.data.length) {
+      if (chosenVerse >= 1 
+        && chosenVerse <= userChoice.data.length 
+        && Number.isInteger(Number(chosenVerse))) {
         numberVerseHandler(chosenVerse);
       } else {
         alert('Số câu không hợp lệ');
-        practiceModel(userChoice);
+        verseInput.value = '';
       }
+
 
     }
   };
@@ -218,7 +225,7 @@ function displayQuestion(data, currentQuestion) {
 function displayChoosePracticeVerse() {
   document.querySelector('.question-container').innerHTML = `
     Nhập số câu Kinh Thánh để luyện tập:
-    <input class='number-verse-input' type="text" placeholder="Số"></input>
+    <input class='number-verse-input' type="number" placeholder="Số"></input>
   `;
 }
 
