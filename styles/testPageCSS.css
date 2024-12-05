@@ -158,6 +158,14 @@ button:hover {
   font-size: larger;
 }
 
+.invalid-number {
+  color: red;
+  width: fit-content;
+  height: fit-content;
+  margin: 20px auto auto auto;
+  font-size: medium;
+}
+
 .number-verse-input {
   height: 25px;
   width: 25px;

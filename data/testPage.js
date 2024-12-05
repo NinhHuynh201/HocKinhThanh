@@ -75,6 +75,7 @@ function testCheckingAnswer(userChoice, currentQuestion) {
 
 // Practice Model
 function practiceModel(userChoice) {
+  hideDivByClass('.invalid-number');
   hideDivByClass('.reset-button');
   hideDivByClass('.answer-input');
   hideDivByClass('.submit-answer-button');
@@ -96,19 +97,25 @@ function practiceModel(userChoice) {
       clearTimeout(typingTimer); // Hủy bỏ timer cũ nếu có
 
       typingTimer = setTimeout(function () {
+        const invalidNumberDiv = document.querySelector('.invalid-number');
 
-        if (chosenVerse >= 1 
-          && chosenVerse <= userChoice.data.length 
+        if (chosenVerse >= 1
+          && chosenVerse <= userChoice.data.length
           && Number.isInteger(Number(chosenVerse))) {
+          if (invalidNumberDiv.style.display === 'block') {
+            hideDivByClass('.invalid-number');
+          }
           numberVerseHandler(chosenVerse);
 
         } else {
-          alert('Số câu không hợp lệ');
+          if (invalidNumberDiv.style.display === 'none') {
+            showDivByClass('.invalid-number');
+          }
           verseInput.value = '';
 
         }
       }, 100); // Chỉ xử lý sau 100ms (tùy chỉnh giá trị này theo nhu cầu)
-    
+
     }
   };
 
