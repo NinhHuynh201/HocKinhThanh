@@ -68,7 +68,7 @@ const thiThienVerses = [
   'Hỡi Đức Giê-hô-va là hòn đá tôi và là Đấng cứu chuộc tôi, Nguyện lời nói của miệng tôi, Sự suy gẫm của lòng tôi được đẹp ý Ngài!'
 ]
 
-export const tests = {
+export const data = {
   phiLipVerses: { // I Phi-líp đoạn 2 câu 1 đến câu 18.
     nameModel: 'Phi-líp 2 : 1 - 18',
     correctAnswers: phiLipVerses

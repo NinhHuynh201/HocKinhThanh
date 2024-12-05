@@ -1,10 +1,13 @@
-import { tests, kiemTraChinhTa } from "./testVerses.js";
+import { data, kiemTraChinhTa } from "./testVerses.js";
 
 console.log('This is Test page');
 
 let userChoice = JSON.parse(localStorage.getItem('currentTest'));
-console.log('Running model: ' + userChoice.model);
 
+console.log('Runing model name: ' + userChoice.name);
+
+console.log('Running model: ' + userChoice.model);
+console.log('Runing data: ' + userChoice.data);
 
 hideDivByClass('.reset-button');
 
@@ -27,28 +30,28 @@ function testModel(currentQuestion) {
 
   document.querySelector('.answer-input').onkeydown = function (e) {
     if (e.key === 'Enter') {
-      testCheckingAnswer(currentQuestion);
+      testCheckingAnswer(userChoice, currentQuestion);
     }
   }
 
   document.querySelector('.submit-answer-button').onclick = function () {
-    testCheckingAnswer(currentQuestion);
+    testCheckingAnswer(userChoice, currentQuestion);
   };
 
 }
 
-function testCheckingAnswer(currentQuestion) {
+function testCheckingAnswer(userChoice, currentQuestion) {
   // Khung kết quả tự động chuyển xuống
   const scrollalbeDiv = document.querySelector('.show-result-container');
   scrollalbeDiv.scrollTop = scrollalbeDiv.scrollHeight;
 
-  if (checkAnswer(currentQuestion)) {// true
+  if (checkAnswer(userChoice, currentQuestion)) {// true
     // Xóa nội dung vừa submit
     document.querySelector('.answer-input').value = '';
 
     currentQuestion++; // số câu tiếp theo
-
-    if (currentQuestion <= tests.phiLipVerses.correctAnswers.length) {
+    
+    if (currentQuestion <= userChoice.data.length) {
 
       testModel(currentQuestion); // Callback
 
@@ -66,7 +69,7 @@ function testCheckingAnswer(currentQuestion) {
     ${document.querySelector('.answer-input').value}</div>
     
     ${currentQuestion}. 
-    ${tests.phiLipVerses.correctAnswers[currentQuestion - 1]}`;
+    ${userChoice.data[currentQuestion - 1]}`;
     document.querySelector('.answer-input').value = '';
     alert("Bắt đầu lại từ đầu.");
     resetButtonVisible();
@@ -92,11 +95,13 @@ function practiceModel() {
 }
 
 // Check each asnwer depending on the current question
-function checkAnswer(currentQuestion) {
+function checkAnswer(userChoice, currentQuestion) {
+console.log("🚀 ~ checkAnswer ~ currentQuestion:", currentQuestion);
 
   let userAnswer = document.querySelector('.answer-input').value;
 
-  let finalAnswer = tests.phiLipVerses.correctAnswers[currentQuestion - 1];
+  let finalAnswer = userChoice.data[currentQuestion - 1];
+  console.log("🚀 ~ checkAnswer ~ finalAnswer:", finalAnswer);
 
   let nhanXet = kiemTraChinhTa(userAnswer, finalAnswer);
 
@@ -134,12 +139,12 @@ function numberVerseHandler(e) {
 
 
     document.querySelector('.submit-answer-button').onclick = function () {
-      submitVerseHandler(chosenVerse);
+      submitVerseHandler(userChoice, chosenVerse);
     }
 
     document.querySelector('.answer-input').onkeydown = function (e) {
       if (e.key === "Enter") {
-        answerInputHandler(e, chosenVerse);
+        answerInputHandler(e, chosenVerse, userChoice);
       }
     };
 
@@ -150,24 +155,24 @@ function numberVerseHandler(e) {
 
 }
 
-function answerInputHandler(e, chosenVerse) {
+function answerInputHandler(e, chosenVerse, userChoice) {
   if (e.key === 'Enter') {
     e.preventDefault();
-    submitVerseHandler(chosenVerse);
+    submitVerseHandler(userChoice, chosenVerse);
   }
 }
 
-function submitVerseHandler(chosenVerse) {
+function submitVerseHandler(userChoice, chosenVerse) {
   console.log('Đã kiểm tra câu KT số ' + chosenVerse);
 
-  if (checkAnswer(chosenVerse) == true) {
+  if (checkAnswer(userChoice, chosenVerse) == true) {
     document.querySelector('.show-result-container').innerHTML = `
     <div style="color: green; padding-bottom: 5px;">
     ${chosenVerse}. 
     ${document.querySelector('.answer-input').value}</div>
     
     ${chosenVerse}. 
-    ${tests.phiLipVerses.correctAnswers[chosenVerse - 1]}`;
+    ${userChoice.data[chosenVerse - 1]}`;
     resetButtonVisible();
 
   } else {
@@ -178,7 +183,7 @@ function submitVerseHandler(chosenVerse) {
     ${document.querySelector('.answer-input').value}</div>
     
     ${chosenVerse}. 
-    ${tests.phiLipVerses.correctAnswers[chosenVerse - 1]}`;
+    ${userChoice.data[chosenVerse - 1]}`;
 
   }
 
