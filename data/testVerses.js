@@ -1,4 +1,4 @@
-const bibleVerses = [
+const phiLipVerses = [
   // Câu 1
   "Vậy nếu trong Đấng Christ có điều yên ủi nào, nếu vì lòng yêu thương có điều cứu giúp nào, nếu có sự thông công nơi Thánh Linh, nếu có lòng yêu mến và lòng thương xót,",
   // Câu 2 
@@ -37,10 +37,45 @@ const bibleVerses = [
   "Anh em cũng vậy, hãy vui lòng về điều đó, và hãy cùng vui với tôi."
 ];
 
+const thiThienVerses = [
+  // Câu 1
+  'Các từng trời rao truyền sự vinh hiển của Đức Chúa Trời, Bầu trời giãi tỏ công việc tay Ngài làm.',
+  // Câu 2
+  'Ngày nầy giảng cho ngày kia, Đêm nầy tỏ sự tri thức cho đêm nọ.',
+  // Câu 3
+  'Chẳng có tiếng, chẳng có lời nói; Cũng không ai nghe tiếng của chúng nó.',
+  // Câu 4 
+  'Dây đo chúng nó bủa khắp trái đất, Và lời nói chúng nó truyền đến cực địa. Nơi chúng nó Ngài đã đóng trại cho mặt trời',
+  // Câu 5
+  'Mặt trời khác nào người tân lang ra khỏi phòng huê chúc, Vui mừng chạy đua như người dõng sĩ',
+  // Câu 6
+  'Mặt trời ra từ phương trời nầy, Chạy vòng giáp đến phương trời kia; Chẳng chi tránh khỏi hơi nóng mặt trời được.',
+  // Câu 7
+  'Luật pháp của Đức Giê-hô-va là trọn vẹn, bổ linh hồn lại; Sự chứng cớ Đức Giê-hô-va là chắc chắn, làm cho kẻ ngu dại trở nên khôn ngoan.',
+  // Câu 8
+  'Giềng mối của Đức Giê-hô-va là ngay thẳng, làm cho lòng vui mừng; Điều răn của Đức Giê-hô-va trong sạch, làm cho mắt sáng sủa.',
+  // Câu 9
+  'Sự kính sợ Đức Giê-hô-va là trong sạch, hằng còn đến đời đời; Các mạng lịnh của Đức Giê-hô-va là chân thật, thảy đều công bình cả.',
+  // Câu 10
+  'Các điều ấy quí hơn vàng, thật báu hơn vàng ròng; Lại ngọt hơn mật, hơn nước ngọt của tàng ong.',
+  // Câu 11
+  'Các điều ấy dạy cho kẻ tôi tớ Chúa được thông hiểu; Ai gìn giữ lấy, được phần thưởng lớn thay.',
+  // Câu 12
+  'Ai biết được các sự sai lầm mình? Xin Chúa tha các lỗi tôi không biết.',
+  // Câu 13
+  'Xin Chúa giữ kẻ tôi tớ Chúa khỏi cố ý phạm tội; Nguyện tội ấy không cai trị tôi; Thì tôi sẽ không chỗ trách được, và không phạm tội trọng.',
+  // Câu 14
+  'Hỡi Đức Giê-hô-va là hòn đá tôi và là Đấng cứu chuộc tôi, Nguyện lời nói của miệng tôi, Sự suy gẫm của lòng tôi được đẹp ý Ngài!'
+]
+
 export const tests = {
   phiLipVerses: { // I Phi-líp đoạn 2 câu 1 đến câu 18.
     nameModel: 'Phi-líp 2 : 1 - 18',
-    correctAnswers: bibleVerses
+    correctAnswers: phiLipVerses
+  },
+  thiThienVerses: { // Thi Thiên đoạn 19 câu 1 đến câu 14
+    nameModel: 'Thi Thiên 19 : 1 - 14',
+    correctAnswers: thiThienVerses
   }
 };
 
