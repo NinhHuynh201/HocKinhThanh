@@ -143,7 +143,7 @@ textarea {
   background-color: yellow;
   -webkit-text-stroke-width: thin;
   border-radius: 5px;
-  margin: 20px auto auto auto;
+  margin: 15px auto auto auto;
 }
 
 button:hover {
@@ -166,4 +166,31 @@ button:hover {
   
   
 }
+
+.completed-text {
+  width: 50%;
+  justify-content: center;
+  display: flex;       /* Đặt kích thước phù hợp với nội dung */
+  padding: 15px 30px;          /* Thêm khoảng cách để nổi bật */
+  font-size: 20px;             /* Kích thước chữ lớn */
+  font-weight: bold;           /* Chữ đậm */
+  color: #ffffff;              /* Màu chữ trắng */
+  background-color: #28a745;   /* Màu nền xanh lá (màu hoàn thành) */
+  border: 2px solid #218838;   /* Đường viền đậm hơn màu nền */
+  border-radius: 10px;         /* Góc bo tròn */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+  text-align: center;          /* Căn giữa text */
+  text-transform: uppercase;   /* Chuyển chữ thành chữ in hoa */
+  letter-spacing: 1.5px;       /* Tạo khoảng cách giữa các chữ */
+  transition: all 0.3s ease;   /* Hiệu ứng mượt khi hover */
+  margin: 20px auto auto auto;
+}
+
+/* Hiệu ứng hover */
+.completed-text:hover {
+  background-color: #218838;   /* Màu nền đậm hơn khi hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Đổ bóng mạnh hơn */
+  transform: scale(1.5);      /* Phóng to nhẹ */
+}
+
 

@@ -10,6 +10,7 @@ console.log('Running model: ' + userChoice.model);
 console.log('Runing data: ' + userChoice.data);
 
 hideDivByClass('.reset-button');
+hideDivByClass('.completed-text');
 
 /** ******* TEST MODEL ********* */
 if (userChoice.model === 'test') {
@@ -58,7 +59,8 @@ function testCheckingAnswer(userChoice, currentQuestion) {
     } else {
       // Nếu đã hết câu hỏi, thông báo kết thúc bài kiểm tra
       alert('Bạn đã hoàn thành bài kiểm tra!');
-      document.querySelector('.feedback').innerText = 'HOÀN THÀNH 100%';
+      hideDivByClass('.feedback');
+      showDivByClass('.completed-text')
       resetButtonVisible();
 
     }
